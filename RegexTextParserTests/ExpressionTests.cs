@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RegexTextParser;
+using System.Collections.Generic;
 
 
 namespace RegexTextParserTests
@@ -12,6 +13,10 @@ namespace RegexTextParserTests
         public void PlusExpressionValidInputs()
         {
             string text = "There are many different types of input text. Some havvve missplellings and errerrrs. others arrr t0948tgorpeiswu-g4-ly intelligible. 123 Something St, Someplace, SW 01234";
+            List<ExpressionTestCase> testCases = 
+                {
+                new ExpressionTestCase("")
+            }
 
         }
     }
