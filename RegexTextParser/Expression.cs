@@ -14,13 +14,16 @@ namespace RegexTextParser
             if (!text.Contains(target))
                 return null;
 
-            for(int i = 0; i < text.Length; i++)
+            List<Range> list = new List<Range>();
+            for (int i = 0; i < text.Length; i++)
             {
                 if (i > text.Length - 1 - target.Length)
                     break;
 
-
+                if (text.Substring(i, target.Length) == target)
+                    list.Add(new Range(i, i + target.Length));
             }
+            return list.ToArray();
         }
     }
 }
