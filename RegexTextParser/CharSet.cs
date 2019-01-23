@@ -9,6 +9,10 @@ namespace RegexTextParser
     public class CharSet
     {
         public List<string> Characters { get; }
+        readonly char[] alpha = new char[]
+        {
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+        };
 
         public CharSet(string text)
         {
