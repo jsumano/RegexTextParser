@@ -8,7 +8,7 @@ namespace RegexTextParser
 {
     public class CharSet
     {
-        public List<char> Characters { get; }
+        public List<string> Characters { get; }
 
         public CharSet(string text)
         {
@@ -16,19 +16,22 @@ namespace RegexTextParser
         }
 
 
-        private List<char> GetCharacters(string s)
+        private List<string> GetCharacters(string s)
         {
-            List<char> result = new List<char>();
+            List<string> result = new List<string>();
             string text = s;
             if (text.Contains('-'))
             {
                 result.AddRange(ExtractRanges(ref text));
             }
+            foreach (char letter in text)
+                result.Add(letter.ToString());
+            return result;
         }
 
-        private List<char> ExtractRanges(ref string text)
+        private List<string> ExtractRanges(ref string text)
         {
-            List<char> result = new List<char>();
+            List<string> result = new List<string>();
             List<char> letters = text.ToList();
             while (letters.Contains('-'))
             {
@@ -63,9 +66,21 @@ namespace RegexTextParser
             return result;
         }
 
-        private List<char> GetRanges(string left, string right)
+        private List<string> GetRanges(string left, string right)
         {
+            List<string> result = new List<string>();
+            if (Char.IsNumber(left[0]))
+            {
+                int start = Convert.ToInt32(left);
+                int end = Convert.ToInt32(right);
+                for (int i = start; i <= end; i++)
+                    result.Add(i.ToString());
+            }
+            else
+            {
 
+            }
+            return result;
         }
 
     }
