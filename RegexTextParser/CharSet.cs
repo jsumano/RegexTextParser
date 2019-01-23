@@ -75,12 +75,17 @@ namespace RegexTextParser
                 int end = Convert.ToInt32(right);
                 for (int i = start; i <= end; i++)
                     result.Add(i.ToString());
+                return result;
             }
-            else
-            {
+            char l = '\0';
+            char r = '\0';
 
-            }
-            return result;
+            if (!Char.TryParse(left, out l) || !Char.TryParse(right, out r))
+                throw new ArgumentException();
+            if (Char.IsUpper(l) != Char.IsUpper(r))
+                throw new ArgumentException();
+
+
         }
 
     }
