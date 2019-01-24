@@ -43,12 +43,16 @@ namespace RegexTextParser
                 while (letters[index] != '-') index++;
                 int left = index - 1;
                 int right = index + 1;
-                string start = "";
-                string end = "";
-                if (Char.IsNumber(letters[left]))
+                if(left < 0 || right > letters.Count - 1)
                 {
-                    start = letters[left].ToString();
-                    end = letters[right].ToString();
+                    result.Add(letters[index].ToString());
+                    letters.RemoveAt(index);
+                    continue;
+                }
+                string start = letters[left].ToString();
+                string end = letters[right].ToString();
+                if (Char.IsNumber(letters[left]))
+                {                           
                     left--;
                     right++;
                     while (left > 0 && Char.IsNumber(letters[left]))
@@ -62,12 +66,47 @@ namespace RegexTextParser
                         right++;
                     }
                 }
-                result.AddRange(GetRanges(start, end));
-                int count = (left == 0) ? right + 1 : right - left + 1; 
-                letters.RemoveRange(left, count);
+                if(IsValidRange(start, end))
+                {
+                    result.AddRange(GetRanges(start, end));
+                    int count = (left == 0) ? right + 1 : right - left + 1;
+                    letters.RemoveRange(left, count);
+                }
+                else
+                {
+                    result.Add(letters[index].ToString());
+                    letters.RemoveAt(index);
+                }
             }
             text = letters.ToString();
             return result;
+        }
+
+        private bool IsValidRange(string start, string end)
+        {
+            if (Char.IsNumber(start[0]) != Char.IsNumber(end[0]))
+                return false;
+            if (Char.IsUpper(start[0]) != Char.IsUpper(end[0]))
+                return false;
+            if(Char.IsNumber(start[0]))
+            {
+                int low = Convert.ToInt32(start);
+                int high = Convert.ToInt32(end);
+                return low < high;
+            }
+            // alpha
+            char left = '\0';
+            char right = '\0';
+            if (!Char.TryParse(start, out left) || !Char.TryParse(end, out right))
+                return false;
+            for(int i = 0; i < alpha.Length; i++)
+            {
+                if (alpha[i] == right)
+                    return false;
+                else if (alpha[i] == left)
+                    return true;
+            }
+            return true;
         }
 
         private List<string> GetRanges(string left, string right)
