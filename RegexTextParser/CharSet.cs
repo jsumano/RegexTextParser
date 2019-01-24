@@ -89,7 +89,19 @@ namespace RegexTextParser
             if (Char.IsUpper(l) != Char.IsUpper(r))
                 throw new ArgumentException();
 
-
+            bool found = false;
+            for(int i = 0; i < alpha.Length; i++)
+            {
+                if (alpha[i] == l || Char.ToUpper(alpha[i]) == l)
+                    found = true;
+                if (!found)
+                    continue;
+                if (Char.IsUpper(l))
+                    result.Add(Char.ToUpper(alpha[i]).ToString());
+                else
+                    result.Add(alpha[i].ToString());
+            }
+            return result;
         }
 
     }
