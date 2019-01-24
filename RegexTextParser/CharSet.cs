@@ -51,7 +51,7 @@ namespace RegexTextParser
                 }
                 string start = letters[left].ToString();
                 string end = letters[right].ToString();
-                if (Char.IsNumber(letters[left]))
+                if (Char.IsNumber(letters[left]) && Char.IsNumber(letters[right]))
                 {                           
                     left--;
                     right++;
@@ -84,11 +84,11 @@ namespace RegexTextParser
 
         private bool IsValidRange(string start, string end)
         {
-            if (Char.IsNumber(start[0]) != Char.IsNumber(end[0]))
+            if (IsNumericString(start) != IsNumericString(end))
                 return false;
             if (Char.IsUpper(start[0]) != Char.IsUpper(end[0]))
                 return false;
-            if(Char.IsNumber(start[0]))
+            if(IsNumericString(start))
             {
                 int low = Convert.ToInt32(start);
                 int high = Convert.ToInt32(end);
@@ -109,10 +109,20 @@ namespace RegexTextParser
             return true;
         }
 
+        private bool IsNumericString(string num)
+        {
+            foreach(char c in num)
+            {
+                if (!Char.IsNumber(c))
+                    return false;
+            }
+            return true;
+        }
+
         private List<string> GetRanges(string left, string right)
         {
             List<string> result = new List<string>();
-            if (Char.IsNumber(left[0]))
+            if (IsNumericString(left))
             {
                 int start = Convert.ToInt32(left);
                 int end = Convert.ToInt32(right);
