@@ -48,10 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpressionTestCase.cs" />
     <Compile Include="ExpressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentTests.cs" />
+    <Compile Include="StringFunctionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

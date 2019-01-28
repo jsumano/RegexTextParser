@@ -77,7 +77,11 @@ namespace RegexTextParser
             // alpha
             char left = '\0';
             char right = '\0';
+            //if (!alpha.Contains(left) || !alpha.Contains(right))
+                //return false;
             if (!Char.TryParse(start, out left) || !Char.TryParse(end, out right))
+                return false;
+            if (left == right)
                 return false;
             for (int i = 0; i < alpha.Length; i++)
             {
@@ -86,7 +90,7 @@ namespace RegexTextParser
                 else if (alpha[i] == left)
                     return true;
             }
-            return true;
+            return false;
         }
 
         public static bool IsNumericString(string num)

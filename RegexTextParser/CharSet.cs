@@ -23,7 +23,7 @@ namespace RegexTextParser
             string text = s;
             if (text.Contains('-'))
             {
-                result.AddRange(ExtractRanges(ref text));
+                result.AddRange(StringFunction.ExtractRanges(ref text));
             }
             foreach (char letter in text)
                 result.Add(letter.ToString());
