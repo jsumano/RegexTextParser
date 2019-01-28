@@ -35,6 +35,40 @@ namespace RegexTextParserTests
                 Assert.IsFalse(test);
         }
 
+        [TestMethod]
+        public void SameStringValidInputReturnTrue()
+        {
+            bool[] testCases = new bool[]
+            {
+                StringFunction.SameLetter('a', 'A'),
+                StringFunction.SameLetter('Q', 'q'),
+                StringFunction.SameLetter('T', 'T'),
+                StringFunction.SameLetter('x', 'x'),
+                StringFunction.SameLetter('B', 'b'),
+                StringFunction.SameLetter('u', 'U')
+            };
+
+            foreach (bool test in testCases)
+                Assert.IsTrue(test);
+        }
+
+        [TestMethod]
+        public void SameStringInvalidInputReturnFalse()
+        {
+            bool[] testCases = new bool[]
+            {
+                StringFunction.SameLetter('g', 'A'),
+                StringFunction.SameLetter('Q', 'i'),
+                StringFunction.SameLetter('T', 'n'),
+                StringFunction.SameLetter('x', 'y'),
+                StringFunction.SameLetter('B', 'l'),
+                StringFunction.SameLetter('u', 'W')
+            };
+
+            foreach (bool test in testCases)
+                Assert.IsFalse(test);
+        }
+
 
         [TestMethod]
         public void IsNumericStringValidInputReturnTrue()
