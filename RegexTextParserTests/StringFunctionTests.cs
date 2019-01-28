@@ -14,7 +14,7 @@ namespace RegexTextParserTests
             {
                 StringFunction.IsValidRange("1", "20"),
                 StringFunction.IsValidRange("A", "Z"),
-                StringFunction.IsValidRange("a", "z"),
+               StringFunction.IsValidRange("a", "z")
             };
 
             foreach (bool test in testRange)
@@ -28,7 +28,7 @@ namespace RegexTextParserTests
             {
                 StringFunction.IsValidRange("1", "z"),
                 StringFunction.IsValidRange("!", "?"),
-                StringFunction.IsValidRange("x", "r"),
+                StringFunction.IsValidRange("x", "r")
             };
 
             foreach (bool test in testRange)

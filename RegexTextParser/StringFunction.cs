@@ -64,11 +64,12 @@ namespace RegexTextParser
 
         public static bool IsValidRange(string start, string end)
         {
-            if (IsNumericString(start) != IsNumericString(end))
+            bool numeric = IsNumericString(start);
+            if (numeric != IsNumericString(end))
                 return false;
             if (Char.IsUpper(start[0]) != Char.IsUpper(end[0]))
                 return false;
-            if (IsNumericString(start))
+            if (numeric)
             {
                 int low = Convert.ToInt32(start);
                 int high = Convert.ToInt32(end);
@@ -77,11 +78,11 @@ namespace RegexTextParser
             // alpha
             char left = '\0';
             char right = '\0';
-            if (!IsAlpha(left) || !IsAlpha(right))
-                return false;
             if (!Char.TryParse(start, out left) || !Char.TryParse(end, out right))
                 return false;
-            if (left == right)
+            if (!IsAlpha(left) || !IsAlpha(right))
+                return false;
+            if (SameLetter(left, right))
                 return false;
             for (int i = 0; i < alpha.Length; i++)
             {
