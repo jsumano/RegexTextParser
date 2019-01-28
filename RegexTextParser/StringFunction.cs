@@ -93,6 +93,19 @@ namespace RegexTextParser
             return false;
         }
 
+        public static bool SameLetter(char l1, char l2)
+        {
+            char c1 = l1;
+            char c2 = l2;
+            int cap1 = Char.IsUpper(l1) ? 1 : 0;
+            int cap2 = Char.IsUpper(l2) ? 1 : 0;
+            if (cap1 > cap2)
+                c2 = Char.ToUpper(c2);
+            else if (cap1 < cap2)
+                c1 = Char.ToUpper(c1);
+            return c1 == c2;
+        }
+
         public static bool IsNumericString(string num)
         {
             foreach (char c in num)
