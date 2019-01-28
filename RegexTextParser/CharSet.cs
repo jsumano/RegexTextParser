@@ -26,7 +26,11 @@ namespace RegexTextParser
                 result.AddRange(StringFunction.ExtractRanges(ref text));
             }
             foreach (char letter in text)
-                result.Add(letter.ToString());
+            {
+                string l = letter.ToString();
+                if (!result.Contains(l))
+                    result.Add(l);
+            }
             return result;
         }
 
