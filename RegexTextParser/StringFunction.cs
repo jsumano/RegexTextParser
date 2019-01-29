@@ -33,24 +33,21 @@ namespace RegexTextParser
                 string end = letters[right].ToString();
                 if (Char.IsNumber(letters[left]) && Char.IsNumber(letters[right]))
                 {
-                    left--;
-                    right++;
-                    while (left > 0 && Char.IsNumber(letters[left]))
+                    while (left > 0 && Char.IsNumber(letters[left - 1]))
                     {
-                        start = letters[left] + start;
                         left--;
+                        start = letters[left] + start;
                     }
-                    while (right < text.Count() - 1 && Char.IsNumber(letters[right]))
+                    while (right < text.Count() - 1 && Char.IsNumber(letters[right + 1]))
                     {
-                        end += letters[right];
                         right++;
+                        end += letters[right];
                     }
                 }
                 if (IsValidRange(start, end))
                 {
-                    result.AddRange(GetRanges(start, end));
-                    int count = (left == 0) ? right + 1 : right - left + 1;
-                    letters.RemoveRange(left, count);
+                    result.AddRange(EnumerateFromRange(start, end));
+                    letters.RemoveRange(left, right - left + 1);
                 }
                 else
                 {
@@ -58,14 +55,17 @@ namespace RegexTextParser
                     letters.RemoveAt(index);
                 }
             }
-            text = letters.ToString();
+            text = "";
+            foreach (char letter in letters)
+                text += letter;
             return result;
         }
 
+
         public static bool IsValidRange(string start, string end)
         {
-            bool numeric = IsNumericString(start);
-            if (numeric != IsNumericString(end))
+            bool numeric = IsNumeric(start);
+            if (numeric != IsNumeric(end))
                 return false;
             if (Char.IsUpper(start[0]) != Char.IsUpper(end[0]))
                 return false;
@@ -114,7 +114,7 @@ namespace RegexTextParser
             return true;
         }
 
-        public static bool IsNumericString(string num)
+        public static bool IsNumeric(string num)
         {
             foreach (char c in num)
             {
@@ -124,10 +124,10 @@ namespace RegexTextParser
             return true;
         }
 
-        public static List<string> GetRanges(string left, string right)
+        public static List<string> EnumerateFromRange(string left, string right)
         {
             List<string> result = new List<string>();
-            if (IsNumericString(left))
+            if (IsNumeric(left))
             {
                 int start = Convert.ToInt32(left);
                 int end = Convert.ToInt32(right);

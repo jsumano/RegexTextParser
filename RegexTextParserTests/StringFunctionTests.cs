@@ -1,12 +1,40 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RegexTextParser;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RegexTextParserTests
 {
     [TestClass]
     public class StringFunctionTests
     {
+
+        [TestMethod]
+        public void ExtractRangesExpectedBehavior()
+        {
+
+            //string text = "abcd7-11tyya-h224bI-M*()&-%$";
+            //string expectedText = "abcdtyy224b*()&%$";
+            //List<string> expectedRanges = new List<string>
+            //{
+            //    "7", "8", "9", "10", "11", "a", "b", "c", "d", "e", "f", "g", "h", "I", "J", "K", "L", "M", "-"
+            //};
+            string text = "abc17-B3-4";
+            string expectedText = "abc7B";
+            //List<string> expectedRanges = new List<string>
+            //{
+            //    "-", "3", "4"
+            //};
+            string expectedRanges = "-34";
+            string actualRanges = "";
+            List<string> ranges = StringFunction.ExtractRanges(ref text);
+            foreach (string s in ranges)
+                actualRanges += s;
+            Assert.AreEqual(expectedText, text);
+            Assert.AreEqual(expectedRanges, actualRanges);
+        }
+
+
         [TestMethod]
         public void IsValidRangeValidInputReturnTrue()
         {
@@ -36,7 +64,7 @@ namespace RegexTextParserTests
         }
 
         [TestMethod]
-        public void SameStringValidInputReturnTrue()
+        public void SameLetterValidInputReturnTrue()
         {
             bool[] testCases = new bool[]
             {
@@ -53,7 +81,7 @@ namespace RegexTextParserTests
         }
 
         [TestMethod]
-        public void SameStringInvalidInputReturnFalse()
+        public void SameLetterInvalidInputReturnFalse()
         {
             bool[] testCases = new bool[]
             {
@@ -101,7 +129,7 @@ namespace RegexTextParserTests
         {
             string[] testCases = new string[] { "123", "7", "999", "11", "0", "865473" };
             foreach (string text in testCases)
-                Assert.IsTrue(StringFunction.IsNumericString(text));
+                Assert.IsTrue(StringFunction.IsNumeric(text));
         }
 
         [TestMethod]
@@ -109,7 +137,7 @@ namespace RegexTextParserTests
         {
             string[] testCases = new string[] { "123a", "!", "x", "1>1", "0|", "8654q73", "[]", "+", "-", "=" };
             foreach (string text in testCases)
-                Assert.IsFalse(StringFunction.IsNumericString(text));
+                Assert.IsFalse(StringFunction.IsNumeric(text));
         }
     }
 }
