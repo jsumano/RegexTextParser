@@ -34,7 +34,10 @@ namespace RegexTextParser
             return result;
         }
 
-        
+        public bool Contains(string text)
+        {
+            return Characters.Contains(text);
+        }
 
     }
 }
