@@ -26,12 +26,16 @@ namespace RegexTextParser
             charSet = set;
         }
 
-        public bool Match(string text)
+        public bool Match(string[] text)
         {
             if (Type == PatternType.Literal)
-                return literal.SequenceEqual(text);
+                return literal.SequenceEqual(StringFunction.ArrayToString(text));
             else
-                return charSet.Contains(text);
+            {
+                foreach (string s in text)
+                    if (!charSet.Contains(s)) return false;
+                return true;
+            }
         }
     }
 }

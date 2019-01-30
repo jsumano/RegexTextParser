@@ -158,5 +158,14 @@ namespace RegexTextParser
             }
             return result;
         }
+
+        public static string ArrayToString(string[] array)
+        {
+            string result = "";
+            foreach (string s in array)
+                result += s;
+            return result;
+        }
+
     }
 }
