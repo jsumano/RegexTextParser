@@ -80,7 +80,7 @@ namespace RegexTextParser
             char right = '\0';
             if (!Char.TryParse(start, out left) || !Char.TryParse(end, out right))
                 return false;
-            if (!IsAlpha(left) || !IsAlpha(right))
+            if (!Char.IsLetter(left) || !Char.IsLetter(right))
                 return false;
             if (SameLetter(left, right))
                 return false;
@@ -109,12 +109,6 @@ namespace RegexTextParser
             return c1 == c2;
         }
 
-        public static bool IsAlpha(char c)
-        {
-            if (!alpha.Contains(c) && !alpha.Contains(Char.ToLower(c)))
-                return false;
-            return true;
-        }
 
         public static bool IsNumeric(string num)
         {
