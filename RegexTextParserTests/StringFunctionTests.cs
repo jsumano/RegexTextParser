@@ -13,24 +13,14 @@ namespace RegexTextParserTests
         public void ExtractRangesExpectedBehavior()
         {
 
-            //string text = "abcd7-11tyya-h224bI-M*()&-%$";
-            //string expectedText = "abcdtyy224b*()&%$";
-            //List<string> expectedRanges = new List<string>
-            //{
-            //    "7", "8", "9", "10", "11", "a", "b", "c", "d", "e", "f", "g", "h", "I", "J", "K", "L", "M", "-"
-            //};
-            string text = "abc17-B3-4";
-            string expectedText = "abc17B";
-            //List<string> expectedRanges = new List<string>
-            //{
-            //    "-", "3", "4"
-            //};
-            string expectedRanges = "-34";
+            string text = "abcd7-11tyya-h224bI-M*()&-%$";
+            string expectedText = "abcdtyy224b*()&%$";
+            string expectedRanges = "7891011abcdefghIJKLM-";
             string actualRanges = "";
             List<string> ranges = StringFunction.ExtractRanges(ref text);
             foreach (string s in ranges)
                 actualRanges += s;
-            //Assert.AreEqual(expectedText, text);
+            Assert.AreEqual(expectedText, text);
             Assert.AreEqual(expectedRanges, actualRanges);
         }
 
@@ -41,14 +31,22 @@ namespace RegexTextParserTests
             {
                 StringFunction.EnumerateFromRange("1", "10"),
                 StringFunction.EnumerateFromRange("a", "z"),
-                StringFunction.EnumerateFromRange("A", "Z")
+                StringFunction.EnumerateFromRange("A", "Z"),
+                StringFunction.EnumerateFromRange("a", "j"),
+                StringFunction.EnumerateFromRange("k", "z"),
+                StringFunction.EnumerateFromRange("A", "J"),
+                StringFunction.EnumerateFromRange("K", "Z"),
             };
 
             List<string>[] expected = new List<string>[]
             {
-                new List<string> {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"},
-                new List<string> {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z" },
-                new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" }
+                new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"},
+                new List<string> { "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z" },
+                new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" },
+                new List<string> { "a","b","c","d","e","f","g","h","i","j" },
+                new List<string> { "k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z" },
+                new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
+                new List<string> { "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" },
             };
 
             for (int i = 0; i < testCases.Length; i++)
@@ -69,6 +67,9 @@ namespace RegexTextParserTests
                 StringFunction.EnumerateFromRange("1", "@"),
                 StringFunction.EnumerateFromRange("q", "*")
             };
+
+            foreach (List<string> test in testCases)
+                Assert.AreEqual(null, test);
         }
 
 
