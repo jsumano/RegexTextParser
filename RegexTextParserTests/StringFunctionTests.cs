@@ -34,6 +34,43 @@ namespace RegexTextParserTests
             Assert.AreEqual(expectedRanges, actualRanges);
         }
 
+        [TestMethod]
+        public void EnumerateFromRangeValidInputReturnList()
+        {
+            List<string>[] testCases = new List<string>[]
+            {
+                StringFunction.EnumerateFromRange("1", "10"),
+                StringFunction.EnumerateFromRange("a", "z"),
+                StringFunction.EnumerateFromRange("A", "Z")
+            };
+
+            List<string>[] expected = new List<string>[]
+            {
+                new List<string> {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"},
+                new List<string> {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z" },
+                new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" }
+            };
+
+            for (int i = 0; i < testCases.Length; i++)
+                Assert.IsTrue(expected[i].SequenceEqual(testCases[i]));
+        }
+
+        [TestMethod]
+        public void EnumerateFromRangeInvalidInputReturnNull()
+        {
+            List<string>[] testCases = new List<string>[]
+            {
+                StringFunction.EnumerateFromRange("1", "z"),
+                StringFunction.EnumerateFromRange("a", "7"),
+                StringFunction.EnumerateFromRange("~", "?"),
+                StringFunction.EnumerateFromRange("z", "r"),
+                StringFunction.EnumerateFromRange("a", "Z"),
+                StringFunction.EnumerateFromRange("A", "z"),
+                StringFunction.EnumerateFromRange("1", "@"),
+                StringFunction.EnumerateFromRange("q", "*")
+            };
+        }
+
 
         [TestMethod]
         public void IsValidRangeValidInputReturnTrue()
@@ -55,8 +92,13 @@ namespace RegexTextParserTests
             bool[] testRange = new bool[]
             {
                 StringFunction.IsValidRange("1", "z"),
-                StringFunction.IsValidRange("!", "?"),
-                StringFunction.IsValidRange("x", "r")
+                StringFunction.IsValidRange("a", "7"),
+                StringFunction.IsValidRange("~", "?"),
+                StringFunction.IsValidRange("z", "r"),
+                StringFunction.IsValidRange("a", "Z"),
+                StringFunction.IsValidRange("A", "z"),
+                StringFunction.IsValidRange("1", "@"),
+                StringFunction.IsValidRange("q", "*")
             };
 
             foreach (bool test in testRange)

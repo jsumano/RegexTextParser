@@ -126,6 +126,9 @@ namespace RegexTextParser
 
         public static List<string> EnumerateFromRange(string left, string right)
         {
+            if (!IsValidRange(left, right))
+                return null;
+
             List<string> result = new List<string>();
             if (IsNumeric(left))
             {
