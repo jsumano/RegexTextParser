@@ -38,7 +38,7 @@ namespace RegexTextParser
                         left--;
                         start = letters[left] + start;
                     }
-                    while (right < text.Count() - 1 && Char.IsNumber(letters[right + 1]))
+                    while (right < letters.Count() - 1 && Char.IsNumber(letters[right + 1]))
                     {
                         right++;
                         end += letters[right];
@@ -93,6 +93,8 @@ namespace RegexTextParser
             }
             return false;
         }
+
+        
 
         public static bool SameLetter(char l1, char l2)
         {
