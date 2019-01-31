@@ -159,6 +159,20 @@ namespace RegexTextParser
             return result;
         }
 
+        public static string[] GetAdjacentNumbersLeftInclusive(string text)
+        {
+            List<string> hits = new List<string>();
+            string concat = "";
+            foreach(char c in text)
+            {
+                if (!Char.IsNumber(c))
+                    return hits.ToArray();
+                concat += c;
+                hits.Add(concat);
+            }
+            return hits.ToArray();
+        }
+
         public static string ArrayToString(string[] array)
         {
             string result = "";

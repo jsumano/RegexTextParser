@@ -155,5 +155,13 @@ namespace RegexTextParserTests
             foreach (string text in testCases)
                 Assert.IsFalse(StringFunction.IsNumeric(text));
         }
+
+        [TestMethod]
+        public void GetAdjacentNumbersLeftInclusive()
+        {
+            string test = "1234hjklp;56778";
+            string[] expected = new string[] { "1", "12", "123", "1234" };
+            Assert.IsTrue(expected.SequenceEqual(StringFunction.GetAdjacentNumbersLeftInclusive(test)));
+        }
     }
 }

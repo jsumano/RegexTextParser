@@ -9,21 +9,26 @@ namespace RegexTextParser
     public static class Expression
     {
 
-        public static Range[] Plus(string text, string target)
+        public static Range[] MinMax(string text, Pattern[] pattern, int min, int max = -1)
         {
-            if (!text.Contains(target))
-                return null;
-
-            List<Range> list = new List<Range>();
-            for (int i = 0; i < text.Length; i++)
+            List<Range> result = new List<Range>();
+            int start = -1;
+            for(int i = 0; i < text.Length; i++)
             {
-                if (i > text.Length - 1 - target.Length)
-                    break;
+                foreach(Pattern p in pattern)
+                {
+                    bool match = false;
+                    if (p.Type == PatternType.Literal)
+                        match = p.Match(new string[] { text.Substring(i, p.GetLiteralLength()) });
+                    else
+                    {
 
-                if (text.Substring(i, target.Length) == target)
-                    list.Add(new Range(i, i + target.Length));
+                    }
+                    if (!match)
+                        break;
+                }
             }
-            return list.ToArray();
+            return null; // fix
         }
     }
 }

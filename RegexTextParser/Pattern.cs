@@ -26,6 +26,48 @@ namespace RegexTextParser
             charSet = set;
         }
 
+        public int GetLiteralLength()
+        {
+            if (Type == PatternType.Literal)
+                return literal.Length;
+            return -1;
+        }
+
+        public int GetLastCharSetMatchIndex(string text)
+        {
+            if (Type != PatternType.CharSet)
+                return -1;
+            int last = 0;
+            int increment = 1;
+            for (int i = 0; i < text.Length; i += increment)
+            {
+                increment = 1;
+                bool match = false;
+                // Check all possible contiguous numbers and use the largest match.
+                if (Char.IsNumber(text[i]))
+                {
+                    string[] conNumbers = StringFunction.GetAdjacentNumbersLeftInclusive(text.Substring(i));
+                    foreach(string num in conNumbers)
+                    {
+                        if(charSet.Contains(num))
+                        {
+                            match = true;
+                            increment = num.Length;
+                        }
+                    }
+                }
+                else
+                {
+                    match = charSet.Contains(text[i].ToString());
+                }
+                if (!match)
+                    break;
+                else
+                    last = i;
+            }
+            return last;
+        }
+
         public bool Match(string[] text)
         {
             if (Type == PatternType.Literal)
