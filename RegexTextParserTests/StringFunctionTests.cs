@@ -159,9 +159,24 @@ namespace RegexTextParserTests
         [TestMethod]
         public void GetAdjacentNumbersLeftInclusive()
         {
-            string test = "1234hjklp;56778";
-            string[] expected = new string[] { "1", "12", "123", "1234" };
-            Assert.IsTrue(expected.SequenceEqual(StringFunction.GetAdjacentNumbersLeftInclusive(test)));
+            string[] test = 
+            {
+                "1234hjklp;56778",
+                "adfjklfds1k2j3k4",
+                "1k2j3h"
+            };
+
+            List<string[]> exResults = new List<string[]>
+            {
+                new string[] { "1", "12", "123", "1234" },
+                new string[] { },
+                new string[] {"1"}
+            };
+
+            for(int i = 0; i < test.Length; i++)
+                Assert.IsTrue(exResults[i].SequenceEqual(StringFunction.GetAdjacentNumbersLeftInclusive(test[i])));
         }
+
+
     }
 }

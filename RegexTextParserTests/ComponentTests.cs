@@ -76,5 +76,11 @@ namespace RegexTextParserTests
             string[] expMatch = { "a", "b", "c", "d", "E", "F", "G", "H", "1", "2", "3", "4", "5" };
             Assert.IsFalse(pattern.Match(expMatch));
         }
+
+        [TestMethod]
+        public void GetLastCharSetMatchIndexExpected()
+        {
+
+        }
     }
 }
