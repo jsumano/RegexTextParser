@@ -13,6 +13,13 @@ namespace RegexTextParser
             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
         };
 
+
+        /// <summary>
+        /// Searches the text for range values, removes them from the ref text and adds the literal values to the
+        /// returned List.
+        /// </summary>
+        /// <param name="text">The text to be cleaned.</param>
+        /// <returns>The extracted literal values of the input ranges.</returns>
         public static List<string> ExtractRanges(ref string text)
         {
             List<string> result = new List<string>();
@@ -62,6 +69,12 @@ namespace RegexTextParser
         }
 
 
+        /// <summary>
+        /// Checks if the input range is valid.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public static bool IsValidRange(string start, string end)
         {
             bool numeric = IsNumeric(start);
@@ -95,7 +108,12 @@ namespace RegexTextParser
         }
 
         
-
+        /// <summary>
+        /// Checks if two letters are alphabetically equivalent.
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
         public static bool SameLetter(char l1, char l2)
         {
             char c1 = l1;
@@ -110,6 +128,11 @@ namespace RegexTextParser
         }
 
 
+        /// <summary>
+        /// Returns a bool indicating whether the string is composed exclusively of numeric characters.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         public static bool IsNumeric(string num)
         {
             foreach (char c in num)
@@ -120,6 +143,12 @@ namespace RegexTextParser
             return true;
         }
 
+        /// <summary>
+        /// Enumerates a list of string literals from input range.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static List<string> EnumerateFromRange(string left, string right)
         {
             if (!IsValidRange(left, right))
@@ -159,6 +188,11 @@ namespace RegexTextParser
             return result;
         }
 
+        /// <summary>
+        /// Starting from the 0 index returns a list of all contiguous numerical values.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string[] GetAdjacentNumbersLeftInclusive(string text)
         {
             List<string> hits = new List<string>();
@@ -173,6 +207,11 @@ namespace RegexTextParser
             return hits.ToArray();
         }
 
+        /// <summary>
+        /// Converts a string array to a string.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static string ArrayToString(string[] array)
         {
             string result = "";

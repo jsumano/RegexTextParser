@@ -26,6 +26,10 @@ namespace RegexTextParser
             charSet = set;
         }
 
+        /// <summary>
+        /// Returns the length of the literal value.
+        /// </summary>
+        /// <returns></returns>
         public int GetLiteralLength()
         {
             if (Type == PatternType.Literal)
@@ -33,6 +37,11 @@ namespace RegexTextParser
             return -1;
         }
 
+        /// <summary>
+        /// Returns the starting index of the last CharSet match in the string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int GetLastCharSetMatchIndex(string text)
         {
             if (Type != PatternType.CharSet)
@@ -68,6 +77,11 @@ namespace RegexTextParser
             return last;
         }
 
+        /// <summary>
+        /// Checks if the string array matches the pattern.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public bool Match(string[] text)
         {
             if (Type == PatternType.Literal)

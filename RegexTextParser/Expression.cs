@@ -11,6 +11,7 @@ namespace RegexTextParser
 
         public static Range[] MinMax(string text, Pattern[] pattern, int min, int max = -1)
         {
+            // TODO complete implementation. Migrate common pattern matching functions to separate methods.
             List<Range> result = new List<Range>();
             int start = -1;
             for(int i = 0; i < text.Length; i++)

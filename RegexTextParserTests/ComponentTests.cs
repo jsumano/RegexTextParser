@@ -80,7 +80,9 @@ namespace RegexTextParserTests
         [TestMethod]
         public void GetLastCharSetMatchIndexExpected()
         {
-
+            Pattern cPattern = new Pattern(new CharSet("a-e5"));
+            string text = "jkl432ace5nmnm";
+            Assert.AreEqual(6, cPattern.GetLastCharSetMatchIndex(text));
         }
     }
 }

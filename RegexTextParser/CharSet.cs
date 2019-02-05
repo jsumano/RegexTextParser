@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace RegexTextParser
 {
+
     public class CharSet
     {
         public List<string> Characters { get; }
-        
 
+        /// <summary>
+        /// Represents a set of letters and numbers.
+        /// </summary>
+        /// <param name="text">A string containing literals and ranges to be added to the CharSet.</param>
         public CharSet(string text)
         {
             Characters = GetCharacters(text);
