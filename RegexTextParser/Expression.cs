@@ -17,6 +17,7 @@ namespace RegexTextParser
             foreach (Pattern pn in pattern)
                 minPatternLength += pn.MinimumLength;
             List<Range> result = new List<Range>();
+            List<Range> matchQueue = new List<Range>();
             for(int i = 0; i < text.Length; i++)
             {
                 int index = i;
@@ -38,6 +39,8 @@ namespace RegexTextParser
                     }
                     if (!match)
                         break;
+                    if (j == pattern.Length - 1)
+                        matchQueue.Add(new Range(i, index - 1));
                 }
             }
             return null; // fix
