@@ -51,9 +51,12 @@ namespace RegexTextParser
                         matchQueue.Add(new Range(i, index - 1));
                 }
 
-                // Clear queue if over max.
+                // Clear result if over max.
                 if (max != -1 && matchQueue.Count() > max)
-                    matchQueue.Clear();
+                {
+                    result.Clear();
+                    break;
+                }
             }
             return result.ToArray();
         }
