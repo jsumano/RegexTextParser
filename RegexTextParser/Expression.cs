@@ -26,6 +26,9 @@ namespace RegexTextParser
                     if (index > text.Length - 1)
                         break;
                     bool match = false;
+                    // Pattern out of text bounds.
+                    if (pattern[j].Type == PatternType.Literal && index + pattern[j].GetLiteralLength() > text.Length - 1)
+                        break;
                     if (pattern[j].Type == PatternType.Literal)
                     {
                         match = pattern[j].Match(new string[] { text.Substring(index, pattern[j].GetLiteralLength()) });
@@ -38,12 +41,21 @@ namespace RegexTextParser
                         index = lastMatch + 1;
                     }
                     if (!match)
+                    {
+                        if (matchQueue.Count() >= min && (max == -1 || matchQueue.Count() <= max))
+                            result.AddRange(matchQueue);
+                        matchQueue.Clear();
                         break;
+                    }
                     if (j == pattern.Length - 1)
                         matchQueue.Add(new Range(i, index - 1));
                 }
+
+                // Clear queue if over max.
+                if (max != -1 && matchQueue.Count() > max)
+                    matchQueue.Clear();
             }
-            return null; // fix
+            return result.ToArray();
         }
     }
 }
