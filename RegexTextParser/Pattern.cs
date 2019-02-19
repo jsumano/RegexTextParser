@@ -9,12 +9,14 @@ namespace RegexTextParser
     public class Pattern
     {
         public PatternType Type { get; }
+        public int MinimumLength { get; }
         string literal;
         CharSet charSet;
 
         public Pattern(string text)
         {
             Type = PatternType.Literal;
+            MinimumLength = text.Length;
             literal = text;
             charSet = null;
         }
@@ -22,6 +24,7 @@ namespace RegexTextParser
         public Pattern(CharSet set)
         {
             Type = PatternType.CharSet;
+            MinimumLength = 1;
             literal = null;
             charSet = set;
         }

@@ -9,10 +9,12 @@ namespace RegexTextParserTests
     [TestClass]
     public class ExpressionTests
     {
+        // string text = "There are many different types of input text. Some havvve missplellings and errerrrs. others arrr t0948tgorpeiswu-g4-ly intelligible. 123 Something St, Someplace, SW 01234";
+
         [TestMethod]
-        public void PlusExpressionValidInputs()
+        public void MinMaxValidMinValidMax()
         {
-            string text = "There are many different types of input text. Some havvve missplellings and errerrrs. others arrr t0948tgorpeiswu-g4-ly intelligible. 123 Something St, Someplace, SW 01234";
+            
             
         }
     }

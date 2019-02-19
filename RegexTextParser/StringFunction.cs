@@ -30,6 +30,7 @@ namespace RegexTextParser
                 while (letters[index] != '-') index++;
                 int left = index - 1;
                 int right = index + 1;
+                // Hyphen is at the beginning or end of text.
                 if (left < 0 || right > letters.Count - 1)
                 {
                     result.Add(letters[index].ToString());
