@@ -7,7 +7,7 @@ using RegexTextParser;
 namespace RegexTextParserTests
 {
     [TestClass]
-    public class ComponentTests
+    public class PatternTests
     {
         [TestMethod]
         public void CreateCharSetWithLiterals()
