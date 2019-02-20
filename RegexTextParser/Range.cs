@@ -20,5 +20,29 @@ namespace RegexTextParser
             Left = left;
             Right = right;
         }
+
+        public static Range[] CondenseRanges(List<Range> range)
+        {
+            if (range.Count() < 2)
+                return range.ToArray();
+            return null;
+        }
+
+        public bool IsAdjacent(Range r1, Range r2)
+        {
+            // Adjacent
+            if (r1.Left - 1 == r2.Left || r1.Left - 1 == r2.Right)
+                return true;
+            if (r1.Right + 1 == r2.Left || r1.Right + 1 == r2.Right)
+                return true;
+            // Left element of r2 overlaps r1.
+            if (r1.Left <= r2.Left && r1.Right >= r2.Left)
+                return true;
+            // Right element of r2 overlaps r1.
+            if (r1.Left <= r2.Right && r1.Right >= r2.Right)
+                return true;
+            return false;
+        }
+
     }
 }
