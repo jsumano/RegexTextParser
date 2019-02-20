@@ -28,7 +28,7 @@ namespace RegexTextParser
             return null;
         }
 
-        public bool IsAdjacent(Range r1, Range r2)
+        public static bool IsAdjacent(Range r1, Range r2)
         {
             // Adjacent
             if (r1.Left - 1 == r2.Left || r1.Left - 1 == r2.Right)
@@ -40,6 +40,12 @@ namespace RegexTextParser
                 return true;
             // Right element of r2 overlaps r1.
             if (r1.Left <= r2.Right && r1.Right >= r2.Right)
+                return true;
+            // Left element of r1 overlaps r2.
+            if (r2.Left <= r1.Left && r2.Right >= r1.Left)
+                return true;
+            // Right element of r1 overlaps r2.
+            if (r2.Left <= r1.Right && r2.Right >= r1.Right)
                 return true;
             return false;
         }
