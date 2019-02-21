@@ -14,7 +14,7 @@ namespace RegexTextParser
 
         public Range(int left, int right)
         {
-            if (left > right)
+            if (left > right || left < 0)
                 throw new ArgumentOutOfRangeException();
 
             Left = left;
