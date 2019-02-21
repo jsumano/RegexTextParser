@@ -28,7 +28,7 @@ namespace RegexTextParser
         /// <returns></returns>
         public static Range[] CondenseRanges(Range[] range)
         {
-            if (range.Count() < 2)
+            if (range == null || range.Count() < 2)
                 return range;
 
             List<Range> result = range.ToList();
@@ -55,6 +55,8 @@ namespace RegexTextParser
         /// <returns></returns>
         public static Range MergeRanges(Range r1, Range r2)
         {
+            if (r1 == null || r2 == null)
+                return null;
             if (!IsAdjacent(r1, r2))
                 return null;
             Range[] combined = new Range[] { r1, r2 };
@@ -72,6 +74,8 @@ namespace RegexTextParser
 
         public static bool IsAdjacent(Range r1, Range r2)
         {
+            if (r1 == null || r2 == null)
+                return false;
             // Adjacent
             if (r1.Left - 1 == r2.Left || r1.Left - 1 == r2.Right)
                 return true;
