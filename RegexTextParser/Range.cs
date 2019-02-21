@@ -14,7 +14,7 @@ namespace RegexTextParser
 
         public Range(int left, int right)
         {
-            if (left > right)
+            if (left > right || left < 0)
                 throw new ArgumentOutOfRangeException();
 
             Left = left;
@@ -28,15 +28,23 @@ namespace RegexTextParser
         /// <returns></returns>
         public static Range[] CondenseRanges(Range[] range)
         {
-            if (range.Count() < 2)
-                return range.ToArray();
-            return null;
+            if (range == null || range.Count() < 2)
+                return range;
 
-            Range current = range[0];
-            for(int i =1; i < range.Count();i++)
+            List<Range> result = range.ToList();
+            for(int i = 0; i < result.Count(); i++)
             {
-
+                for(int j = i + 1; j < result.Count; j++)
+                {
+                    if(IsAdjacent(result[i], result[j]))
+                    {
+                        result[i] = MergeRanges(result[i], result[j]);
+                        result.RemoveAt(j);
+                        j--;
+                    }
+                }
             }
+            return result.ToArray();
         }
 
         /// <summary>
@@ -47,6 +55,8 @@ namespace RegexTextParser
         /// <returns></returns>
         public static Range MergeRanges(Range r1, Range r2)
         {
+            if (r1 == null || r2 == null)
+                return null;
             if (!IsAdjacent(r1, r2))
                 return null;
             Range[] combined = new Range[] { r1, r2 };
@@ -64,6 +74,8 @@ namespace RegexTextParser
 
         public static bool IsAdjacent(Range r1, Range r2)
         {
+            if (r1 == null || r2 == null)
+                return false;
             // Adjacent
             if (r1.Left - 1 == r2.Left || r1.Left - 1 == r2.Right)
                 return true;

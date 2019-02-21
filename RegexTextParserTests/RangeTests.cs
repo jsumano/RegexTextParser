@@ -82,5 +82,11 @@ namespace RegexTextParserTests
             for (int i = 0; i < testCases.Length; i++)
                 Assert.IsNull(Range.MergeRanges(baseCase, testCases[i]));
         }
+
+        [TestMethod]
+        public void CondenseRangesExpectedBehavior()
+        {
+
+        }
     }
 }
