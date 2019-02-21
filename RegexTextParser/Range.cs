@@ -29,14 +29,22 @@ namespace RegexTextParser
         public static Range[] CondenseRanges(Range[] range)
         {
             if (range.Count() < 2)
-                return range.ToArray();
-            return null;
+                return range;
 
-            Range current = range[0];
-            for(int i =1; i < range.Count();i++)
+            List<Range> result = range.ToList();
+            for(int i = 0; i < result.Count(); i++)
             {
-
+                for(int j = i + 1; j < result.Count; j++)
+                {
+                    if(IsAdjacent(result[i], result[j]))
+                    {
+                        result[i] = MergeRanges(result[i], result[j]);
+                        result.RemoveAt(j);
+                        j--;
+                    }
+                }
             }
+            return result.ToArray();
         }
 
         /// <summary>
