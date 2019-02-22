@@ -101,5 +101,24 @@ namespace RegexTextParserTests
                 Assert.AreEqual(expected[i].Right, actual[i].Right);
             }
         }
+
+        [TestMethod]
+        public void CondenseRangesAllDisjunctReturnsInput()
+        {
+            Range[] uncondensed = new Range[]
+            {
+                new Range(80, 90), new Range(30, 35), new Range(1, 22), new Range(40, 60), new Range(63, 74), new Range(96, 100)
+            };
+
+            Range[] expected = uncondensed;
+
+            Range[] actual = Range.CondenseRanges(uncondensed);
+            for (int i = 0; i < expected.Count(); i++)
+            {
+                Assert.AreEqual(expected[i].Left, actual[i].Left);
+                Assert.AreEqual(expected[i].Right, actual[i].Right);
+            }
+        }
+
     }
 }
