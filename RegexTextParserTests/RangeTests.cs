@@ -85,7 +85,7 @@ namespace RegexTextParserTests
         }
 
         [TestMethod]
-        public void CondenseRangesAllAdjacent()
+        public void CondenseRangesAllAdjacentReturnsSingleCondensedRange()
         {
             Range[] uncondensed = new Range[]
             {
