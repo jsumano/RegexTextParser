@@ -34,7 +34,8 @@ namespace RegexTextParser
             List<Range> result = range.ToList();
             for(int i = 0; i < result.Count(); i++)
             {
-                for(int j = 0; j < result.Count; j++)
+                bool merged = false;
+                for (int j = 0; j < result.Count(); j++)
                 {
                     if (j == i)
                         continue;
@@ -44,7 +45,10 @@ namespace RegexTextParser
                         result[i] = MergeRanges(result[i], result[j]);
                         result.RemoveAt(j);
                         j--;
+                        merged = true;
                     }
+                    if (j == result.Count() - 1 && merged)
+                        i--;
                 }
             }
             return result.ToArray();

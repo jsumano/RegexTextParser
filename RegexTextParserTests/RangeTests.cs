@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RegexTextParser;
+using System.Linq;
 
 namespace RegexTextParserTests
 {
@@ -84,9 +85,21 @@ namespace RegexTextParserTests
         }
 
         [TestMethod]
-        public void CondenseRangesExpectedBehavior()
+        public void CondenseRangesAllAdjacent()
         {
+            Range[] uncondensed = new Range[]
+            {
+                new Range(80, 90), new Range(30, 39), new Range(1, 29), new Range(40, 60), new Range(61, 79), new Range(90, 100)
+            };
 
+            Range[] expected = new Range[] { new Range(1, 100) };
+
+            Range[] actual = Range.CondenseRanges(uncondensed);
+            for(int i = 0; i < expected.Count(); i++)
+            {
+                Assert.AreEqual(expected[i].Left, actual[i].Left);
+                Assert.AreEqual(expected[i].Right, actual[i].Right);
+            }
         }
     }
 }
