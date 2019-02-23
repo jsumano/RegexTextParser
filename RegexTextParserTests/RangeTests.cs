@@ -120,5 +120,23 @@ namespace RegexTextParserTests
             }
         }
 
+        [TestMethod]
+        public void CondenseRangesMixedInputReturnsCondensedandInput()
+        {
+            Range[] uncondensed = new Range[]
+            {
+                new Range(80, 90), new Range(30, 39), new Range(1, 29), new Range(40, 50), new Range(61, 75), new Range(90, 100)
+            };
+
+            Range[] expected = new Range[] { new Range(80, 100), new Range(1, 50), new Range(61, 75) };
+
+            Range[] actual = Range.CondenseRanges(uncondensed);
+            for (int i = 0; i < expected.Count(); i++)
+            {
+                Assert.AreEqual(expected[i].Left, actual[i].Left);
+                Assert.AreEqual(expected[i].Right, actual[i].Right);
+            }
+        }
+
     }
 }
