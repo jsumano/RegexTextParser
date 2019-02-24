@@ -49,8 +49,9 @@ namespace RegexTextParser
         {
             if (Type != PatternType.CharSet)
                 return -1;
-            int last = 0;
+            int last = -1;
             int increment = 1;
+            bool lastMatched = false;
             for (int i = 0; i < text.Length; i += increment)
             {
                 increment = 1;
@@ -59,23 +60,23 @@ namespace RegexTextParser
                 if (Char.IsNumber(text[i]))
                 {
                     string[] conNumbers = StringFunction.GetAdjacentNumbersLeftInclusive(text.Substring(i));
-                    foreach(string num in conNumbers)
+                    foreach (string num in conNumbers)
                     {
-                        if(charSet.Contains(num))
+                        if (charSet.Contains(num))
                         {
                             match = true;
                             increment = num.Length;
                         }
                     }
                 }
-                else
-                {
-                    match = charSet.Contains(text[i].ToString());
-                }
-                if (!match)
-                    break;
-                else
+                else if (charSet.Contains(text[i].ToString()))
+                    match = true;
+                if (match && !lastMatched)
                     last = i;
+                if (match)
+                    lastMatched = true;
+                else
+                    lastMatched = false;
             }
             return last;
         }

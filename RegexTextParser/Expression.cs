@@ -58,7 +58,7 @@ namespace RegexTextParser
                     break;
                 }
             }
-            return result.ToArray();
+            return Range.CondenseRanges(result.ToArray());
         }
     }
 }
