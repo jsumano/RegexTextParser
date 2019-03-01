@@ -9,16 +9,24 @@ namespace RegexTextParser
     public static class Expression
     {
 
+        public static Range[] QuestionMark(string text, Pattern[] pattern)
+        {
+            return MinMax(text, pattern, 0, 1);
+        }
+
         public static Range[] MinMax(string text, Pattern[] pattern, int min, int max = -1)
         {
-            // Migrate common pattern matching functions to separate methods.
-            // Change for loop conditional to i < text.Length - minimum pattern length.
+            // TODO Migrate common pattern matching functions to separate methods.
+            if (max != -1 && min > max)
+                return null;
+            if (text == null || pattern == null)
+                return null;
             int minPatternLength = 0;
             foreach (Pattern pn in pattern)
                 minPatternLength += pn.MinimumLength;
             List<Range> result = new List<Range>();
             List<Range> matchQueue = new List<Range>();
-            for(int i = 0; i < text.Length; i++)
+            for(int i = 0; i < text.Length - minPatternLength; i++)
             {
                 int index = i;
                 for (int j = 0; j < pattern.Length; j++)
