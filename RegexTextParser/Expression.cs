@@ -9,6 +9,11 @@ namespace RegexTextParser
     public static class Expression
     {
 
+        public static Range[] QuestionMark(string text, Pattern[] pattern)
+        {
+            return MinMax(text, pattern, 0, 1);
+        }
+
         public static Range[] MinMax(string text, Pattern[] pattern, int min, int max = -1)
         {
             // TODO Migrate common pattern matching functions to separate methods.
