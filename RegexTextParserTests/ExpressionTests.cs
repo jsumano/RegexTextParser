@@ -37,5 +37,34 @@ namespace RegexTextParserTests
 
             }
         }
+
+        [TestMethod]
+        public void MinMaxValidMin1ThroughnValidMaxn()
+        {
+            string text = "x xx xxx xxxx";
+
+            Pattern[] pattern = new Pattern[] { new Pattern("x") };
+
+            List<Range[]> expected = new List<Range[]>
+            {
+                new Range[] { new Range(0,0), new Range(2,3), new Range(5,7), new Range(9,12)},
+                new Range[] { new Range(2,3), new Range(5,7), new Range(9,12)},
+                new Range[] { new Range(5,7), new Range(9,12)},
+                new Range[] { new Range(9,12)},
+            };
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Range[] actual = Expression.MinMax(text, pattern, i + 1, expected.Count);
+                for (int j = 0; j < actual.Length; j++)
+                {
+                    Assert.AreEqual(expected[i][j].Left, actual[j].Left);
+                    Assert.AreEqual(expected[i][j].Right, actual[j].Right);
+                }
+
+            }
+        }
+
+
     }
 }
