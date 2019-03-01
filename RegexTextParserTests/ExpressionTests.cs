@@ -65,6 +65,18 @@ namespace RegexTextParserTests
             }
         }
 
+        [TestMethod]
+        public void MinMaxValidMin0ValidMax0()
+        {
+            string text = "x xx xxx xxxx";
+
+            Pattern[] pattern = new Pattern[] { new Pattern("x") };
+
+            Range[] expected = new Range[0];
+            Range[] actual = Expression.MinMax(text, pattern, 0, 0);
+            Assert.IsTrue(expected.SequenceEqual(actual));
+        }
+
 
     }
 }
