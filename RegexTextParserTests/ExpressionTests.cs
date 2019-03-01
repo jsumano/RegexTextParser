@@ -124,5 +124,31 @@ namespace RegexTextParserTests
 
             }
         }
+
+        [TestMethod]
+        public void MinMaxValidMin1ThroughnValidMaxnCharSet()
+        {
+            Pattern[] pattern = new Pattern[] { new Pattern(new CharSet("a-g4")) };
+            string text = "fees for cabs of 44 or more";
+
+            List<Range[]> expected = new List<Range[]>
+            {
+                new Range[] { new Range(0, 3), new Range(5,5), new Range(9,11), new Range(15,15), new Range(17, 18), new Range(25,25)},
+                new Range[] { new Range(0, 3), new Range(9,11), new Range(17, 18) },
+                new Range[] { new Range(0, 3), new Range(9,11)},
+                new Range[] { new Range(0, 3)},
+            };
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Range[] actual = Expression.MinMax(text, pattern, i + 1, expected.Count);
+                for (int j = 0; j < actual.Length; j++)
+                {
+                    Assert.AreEqual(expected[i][j].Left, actual[j].Left);
+                    Assert.AreEqual(expected[i][j].Right, actual[j].Right);
+                }
+
+            }
+        }
     }
 }
