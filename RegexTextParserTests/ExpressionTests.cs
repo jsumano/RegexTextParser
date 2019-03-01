@@ -77,6 +77,15 @@ namespace RegexTextParserTests
             Assert.IsTrue(expected.SequenceEqual(actual));
         }
 
+        [TestMethod]
+        public void MinMaxnullInputsReturnsnull()
+        {
+            string text = "x xx xxx xxxx";
 
+            Pattern[] pattern = new Pattern[] { new Pattern("x") };
+
+            Assert.IsNull(Expression.MinMax(null, pattern, 0, 0));
+            Assert.IsNull(Expression.MinMax(text, null, 0, 0));
+        }
     }
 }
