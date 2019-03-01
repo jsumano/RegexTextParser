@@ -11,8 +11,12 @@ namespace RegexTextParser
 
         public static Range[] MinMax(string text, Pattern[] pattern, int min, int max = -1)
         {
-            // Migrate common pattern matching functions to separate methods.
+            // TODO Migrate common pattern matching functions to separate methods.
             // Change for loop conditional to i < text.Length - minimum pattern length.
+            if (max != -1 && min > max)
+                return null;
+            if (text == null || pattern == null)
+                return null;
             int minPatternLength = 0;
             foreach (Pattern pn in pattern)
                 minPatternLength += pn.MinimumLength;
